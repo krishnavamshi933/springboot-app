@@ -152,7 +152,7 @@ pipeline{
                sh "scp -o StrictHostKeyChecking=no eks-deploy-k8s.yaml ec2-user@172.31.32.185:/home/ec2-user"
             script {
                 try{
-                    sh "ssh ec2-user@172.31.32.185 kubectl create -f ."
+                    sh "ssh ec2-user@172.31.32.185 kubectl apply-f ."
                 }
                 catch(error){
                     sh "ssh ec2-user@172.31.32.185 kubectl create -f ." //private ip of cluster
