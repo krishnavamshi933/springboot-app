@@ -125,14 +125,31 @@ pipeline{
                    dockerImageCleanup("${params.aws_account_id}","${params.Region}","${params.ECR_REPO_NAME}")
                }
             }
-        }  
-         stage ("Kube Deploy") {
-            steps {
-                withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'eks', namespace: '', serverUrl: '') {
-                 sh "kubectl apply -f eks-deploy-from-ecr.yaml"
-                }
+        } 
+
+        stage('Connect to EKS '){
+            when { expression {  params.action == 'create' } }
+        steps{
+
+            script{
+
+                sh """
+                aws configure set aws_access_key_id "$ACCESS_KEY"
+                aws configure set aws_secret_access_key "$SECRET_KEY"
+                aws configure set region "${params.Region}"
+                aws eks --region ${params.Region} update-kubeconfig --name ${params.cluster}
+                """
             }
         }
+        } 
+
+        //  stage ("Kube Deploy") {
+        //     steps {
+        //         withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'eks', namespace: '', serverUrl: '') {
+        //          sh "kubectl apply -f eks-deploy-from-ecr.yaml"
+        //         }
+        //     }
+        // }
     }
 }
     
