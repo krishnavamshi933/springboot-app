@@ -143,13 +143,25 @@ pipeline{
         // }
         // } 
 
+         
+
          stage ("Kube Deploy") {
             steps {
-                withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'K8S', namespace: '', serverUrl: '') {
-                 sh "kubectl apply -f eks-deploy-k8s.yaml"
+                 sshagent(['k8s']) {
+    
+               sh "scp -o StrictHostKeyChecking=no eks-deploy-k8s.yaml ec2-user@IPofk8scluster:/home/ec2-user"
+            script {
+                try{
+                    sh "ssh ec2-user@IPofk8scluster kubectl create -f ."
+                }
+                catch(error){
+                    sh "ssh ec2-user@IPofk8scluster kubectl create -f ."
+
+                 }
                 }
             }
-        }
+            }
+         }
     }
 }
     
