@@ -24,7 +24,7 @@ pipeline{
             when { expression {  params.action == 'create' } }
              steps{
             gitCheckout(
-                branch: "master",
+                branch: "main",
                 url: "git@github.com:Shankargoud1/springboot-app.git"
             ) 
             }
