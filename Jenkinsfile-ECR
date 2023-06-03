@@ -145,23 +145,23 @@ pipeline{
 
          
 
-         stage ("Kube Deploy") {
-            steps {
-                 sshagent(['k8s']) {
+        //  stage ("Kube Deploy") {
+        //     steps {
+        //          sshagent(['k8s']) {
     
-               sh "scp -o StrictHostKeyChecking=no eks-deploy-k8s.yaml ec2-user@35.77.93.248:/home/ec2-user"
-            script {
-                try{
-                    sh "ssh ec2-user@35.77.93.248 kubectl apply -f ."
-                }
-                catch(error){
-                    sh "ssh ec2-user@35.77.93.248 kubectl create -f ." //private ip of cluster
+        //        sh "scp -o StrictHostKeyChecking=no eks-deploy-k8s.yaml ec2-user@35.77.93.248:/home/ec2-user"
+        //     script {
+        //         try{
+        //             sh "ssh ec2-user@35.77.93.248 kubectl apply -f ."
+        //         }
+        //         catch(error){
+        //             sh "ssh ec2-user@35.77.93.248 kubectl create -f ." //private ip of cluster
 
-                 }
-                }
-            }
-            }
-         }
+        //          }
+        //         }
+        //     }
+        //     }
+        //  }
     }
 }
     
