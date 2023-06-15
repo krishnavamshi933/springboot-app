@@ -12,8 +12,8 @@ pipeline{
 
         choice(name: 'action', choices: 'create\ndelete', description: 'Choose create/Destroy')
         string(name: 'aws_account_id', description: " AWS Account ID", defaultValue: '074469624262')
-        string(name: 'Region', description: "Region of ECR", defaultValue: 'ap-northeast-1')
-        string(name: 'ECR_REPO_NAME', description: "name of the ECR", defaultValue: 'shankar')
+        string(name: 'Region', description: "Region of ECR", defaultValue: 'ap-southeast-1')
+        string(name: 'ECR_REPO_NAME', description: "name of the ECR", defaultValue: 'krishnavamshi')
        // string(name: 'cluster', description: "name of the EKS Cluster", defaultValue: 'demo-eks') 
      }
     
@@ -25,7 +25,7 @@ pipeline{
              steps{
             gitCheckout(
                 branch: "main",
-                url: "git@github.com:Shankargoud1/springboot-app.git"
+                url: "git@github.com:krishnavamshi933/springboot-app.git"
             ) 
             }
         }
