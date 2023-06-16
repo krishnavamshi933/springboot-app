@@ -21,9 +21,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <!-- SonarQube server details -->
-        <sonar.host.url>http://3.0.103.126:9000/</sonar.host.url>
-        <sonar.login>sqp_98574f80d58558fba656ca3f638447d89ae8a72c</sonar.login>
     </properties>
  
     <dependencies>
@@ -46,21 +43,12 @@
  
     <build>
         <plugins>
-            <!-- Add SonarQube plugin -->
-            <plugin>
-                <groupId>org.sonarsource.scanner.maven</groupId>
-                <artifactId>sonar-maven-plugin</artifactId>
-                <version>3.9.0.2155</version>
-            </plugin>
-            
-            <!-- Other plugins -->
-            
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-        <finalName>springbootApp</finalName>
+	<finalName>springbootApp</finalName>
     </build>
  
 </project>
