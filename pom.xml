@@ -21,13 +21,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <!-- SonarQube properties -->
-        <sonar.host.url>http://3.0.103.126:9000/</sonar.host.url> <!-- Update with your SonarQube server URL -->
-        <sonar.login>sqp_2cfedf4569c1554828f8c3bfec5ea4e1e0a076a8</sonar.login> <!-- Update with your SonarQube access token -->
     </properties>
  
     <dependencies>
-        <!-- Your existing dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -47,20 +43,12 @@
  
     <build>
         <plugins>
-            <!-- Your existing plugins -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            
-            <!-- SonarQube plugin -->
-            <plugin>
-                <groupId>org.sonarsource.scanner.maven</groupId>
-                <artifactId>sonar-maven-plugin</artifactId>
-                <version>3.9.1.2184</version>
-            </plugin>
         </plugins>
-        <finalName>springbootApp</finalName>
+	<finalName>springbootApp</finalName>
     </build>
  
 </project>
