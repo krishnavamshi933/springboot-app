@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the source code from Git
+                git branch: 'main', credentialsId: 'git', url: 'git@github.com:krishnavamshi933/springboot-app.git'
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                // Build the Maven project
+                sh 'mvn clean install'
+            }
+        }
+        
+        stage('SonarQube Analysis') {
+            steps {
+                // Run SonarQube analysis
+                sh 'mvn sonar:sonar -Dsonar.projectKey=sample-ecr -Dsonar.projectName="sample-ecr" -Dsonar.host.url=http://3.0.103.126:9000 -Dsonar.login=sqp_2cfedf4569c1554828f8c3bfec5ea4e1e0a076a8'
+            }
+        }
+        
+        stage('Docker Build') {
+            steps {
+                // Build the Docker image
+                sh 'docker build -t krishnavamshi .'
+            }
+        }
+        
+        stage('ECR Image Push') {
+            steps {
+                // Get the ECR login password using AWS CLI
+                withCredentials([usernamePassword(credentialsId: 'aws-ecr-credentials1', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    sh 'aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 074469624262.dkr.ecr.ap-southeast-1.amazonaws.com'
+                }
+                
+                // Tag the Docker image
+                sh 'docker tag krishnavamshi:latest 074469624262.dkr.ecr.ap-southeast-1.amazonaws.com/krishnavamshi:latest'
+                
+                // Push the Docker image to AWS ECR
+                sh 'docker push 074469624262.dkr.ecr.ap-southeast-1.amazonaws.com/krishnavamshi:latest'
+            }
+        }
+    }
+}
