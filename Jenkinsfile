@@ -45,7 +45,7 @@ pipeline {
             steps {
                 // Get the ECR login password using AWS CLI
                 withCredentials([usernamePassword(credentialsId: params.awsCredentialsId, usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                    sh "aws ecr get-login-password --region ${params.awsRegion} | docker login --username AWS --password-stdin 074469624262.dkr.ecr.ap-southeast-1.amazonaws.com"
+                    sh "aws ecr get-login-password --region ${params.awsRegion} | docker login --username AWS --password-stdin .amazonaws.com"
                 }
 
                 // Tag the Docker image
